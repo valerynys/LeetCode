@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 func removeElement(nums []int, val int) int {
 	head := 0
 	tail := len(nums) - 1
@@ -25,6 +27,12 @@ func removeElement(nums []int, val int) int {
 	return len(nums)
 }
 
+func f() *int {
+	v := 1
+	return &v
+}
 func main() {
-
+	p := new(struct{})
+	q := new(struct{})
+	fmt.Println(p == q)
 }
