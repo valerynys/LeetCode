@@ -1,4 +1,4 @@
-package main
+package _03__Remove_Linked_List_Elements
 
 type ListNode struct {
 	Val  int
