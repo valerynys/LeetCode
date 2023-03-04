@@ -5,51 +5,46 @@ import (
 	"sort"
 )
 
-type Interval struct {
-	start int
-	end   int
-}
-
-type IntervalList []Interval
-
-func (il IntervalList) Len() int {
-	return len(il)
-}
-
-func (il IntervalList) Less(i, j int) bool {
-	return il[i].start < il[j].start
-}
-
-func (il IntervalList) Swap(i, j int) {
-	il[i], il[j] = il[j], il[i]
-}
-
-func MergeIntervals(intervals []Interval) []Interval {
+// Time: O(nlogn + n) = O(nlogn)
+// Space: O(n)
+func merge(intervals [][]int) [][]int {
 	if len(intervals) <= 1 {
 		return intervals
 	}
 
-	sort.Sort(IntervalList(intervals))
+	// Time: O(nlogn)
+	sortIntervals(intervals)
 
-	merged := []Interval{intervals[0]}
+	// Space: O(n)
+	mergedIntervals := make([][]int, 0, len(intervals))
+	mergedIntervals = append(mergedIntervals, intervals[0])
 
-	for i := 1; i < len(intervals); i++ {
-		current := intervals[i]
-		lastMerged := &merged[len(merged)-1]
-		if current.start <= lastMerged.end {
-			if current.end > lastMerged.end {
-				lastMerged.end = current.end
-			}
-		} else {
-			merged = append(merged, current)
+	// Time: O(n)
+	for _, interval := range intervals[1:] {
+		if top := mergedIntervals[len(mergedIntervals)-1]; interval[0] > top[1] {
+			mergedIntervals = append(mergedIntervals, interval)
+		} else if interval[1] > top[1] {
+			top[1] = interval[1]
 		}
 	}
 
-	return merged
+	return mergedIntervals
+}
+
+// If an interval is {x, y},
+// sortIntervals sorts the intervals by their "x" value.
+// Time: O(nlogn)
+// Space: O(1)
+func sortIntervals(intervals [][]int) {
+	// Time: O(nlogn)
+	sort.Slice(intervals, func(i, j int) bool {
+		return intervals[i][0] < intervals[j][0]
+	})
+	fmt.Println(intervals)
 }
 
 func main() {
-	intervals := []Interval{{1, 3}, {2, 6}, {8, 10}, {15, 18}}
-	merged := MergeIntervals(intervals)
+	intervals := [][]int{{1, 3}, {2, 4}, {1, 2}, {15, 18}}
+	merged := merge(intervals)
 	fmt.Println(merged)
 }
