@@ -25,7 +25,7 @@ func isAnagram(s string, t string) bool {
 }
 
 func main() {
-	s := "anagram"
-	t := "nagaram"
+	s := ""
+	t := ""
 	fmt.Println(isAnagram(s, t))
 }
