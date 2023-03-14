@@ -35,14 +35,14 @@ func dfs(node *TreeNode, sum int) int {
 
 func main() {
 	root := &TreeNode{Val: 1}
-	root.Left = &TreeNode{Val: 2}
-	root.Right = &TreeNode{Val: 3}
-	root.Left.Left = &TreeNode{Val: 4}
-	root.Left.Right = &TreeNode{Val: 5}
+	root.Left = &TreeNode{Val: 200}
+	root.Right = &TreeNode{Val: 30}
+	root.Left.Left = &TreeNode{Val: 10}
+	root.Left.Right = &TreeNode{Val: 200}
 
 	// calculate the sum of all root-to-leaf paths
 	totalSum := sumNumbers(root)
 
 	// print the result
-	fmt.Println(totalSum) // Output: 262
+	fmt.Println(totalSum)
 }
